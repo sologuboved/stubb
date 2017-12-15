@@ -1,35 +1,88 @@
 # -*- coding: utf-8 -*-
 
+import json
 import requests
 from bs4 import BeautifulSoup
 
+FOLDERNAME = "Moby Dick/"
+TITLE = 'title'
+TEXT = 'text'
 
-def scrape():
-    m_d = list()
-    chapter_urls = generate_chapter_urls()
-    for chapter_url in chapter_urls:
-        title, text = scrape_chapter(chapter_url)
-        chapter = {'title': title, 'text': text}
-        m_d.append(chapter)
+
+def generate_filename(ind):
+    return FOLDERNAME + str(ind) + '.json'
+
+
+def dump_json(chapter, json_filename):
+    with open(json_filename, 'w') as handler:
+        json.dump(chapter, handler)
+
+
+def load_json(json_filename):
+    with open(json_filename) as data:
+        return json.load(data)
+
+
+def scrape_and_dump_novel():
+    print('Scraping "Moby Dick...\n')
+    titles = scrape_titles()
+    chapter_ids = generate_chapter_ids()
+    ind = 1
+    for chapter_id in chapter_ids:
+        text = scrape_chapter(chapter_id, ind)
+        title = titles.pop(0)
+        chapter = {TITLE: title, TEXT: text}
+        filename = generate_filename(ind)
+        print("Dumping %s to %s" % (title, filename))
+        dump_json(chapter, filename)
+        ind += 1
     epilogue_title, epilogue_text = get_epilogue()
-    m_d.append({'title': epilogue_title, 'text': epilogue_text})
-    return m_d
+    epilogue = {TITLE: epilogue_title, TEXT: epilogue_text}
+    filename = generate_filename(ind)
+    print("Dumping %s to %s" % (epilogue_title, filename))
+    dump_json(epilogue, filename)
 
 
 def generate_chapter_urls():
-    print("Generating chapter urls...")
-    prefix = 'http://www.mobydickthewhale.com/moby-dick/moby-dick-chapter-'
-    postfix = '.htm'
-    return [prefix + str(num) + postfix for num in range(1, 136)]
+    titles = scrape_titles()
+    for title in titles:
+        chapter_url = generate_chapter_url(title)
+        html = requests.get(chapter_url).content
+        soup = BeautifulSoup(html, 'html.parser')
+        if "The page you requested could not be found" in str(soup):
+            print(chapter_url)
 
 
-def scrape_chapter(chapter_url):
-    print("Scraping", chapter_url + '...')
-    chapter_html = requests.get(chapter_url).content
-    soup = BeautifulSoup(chapter_html, 'html.parser')
-    title = soup.find('title').text
-    paragraphs = [paragraph.text for paragraph in soup.find_all('p')[: -2]]
-    return title, paragraphs
+def generate_chapter_url(title):
+    prefix = 'https://americanliterature.com/author/herman-melville/book/moby-dick-or-the-whale/'
+    raw_num, head = map(lambda i: i.strip(), title.split(':'))
+    num = list(map(lambda i: i.lower(), raw_num.split()))
+    postfix = '-'.join(num + [''.join(filter(str.isalpha, word)) for word in head.lower().split()])
+    return prefix + postfix
+
+
+
+def scrape_chapter(chapter_id, ind):
+    print("Scraping chapter", ind)
+    html = requests.get('http://www.gutenberg.org/files/2701/2701-h/2701-h.htm').content
+    soup = BeautifulSoup(html, 'html.parser')
+    paragraphs = soup.find('a', {'id': chapter_id})
+    print(paragraphs)
+
+
+    return paragraphs
+
+
+def scrape_titles():
+    print("Scraping titles...")
+    titles = list()
+    html = requests.get('http://www.mobydickthewhale.com/moby-dick/moby-dick-table-of-contents.htm').content
+    raw_titles = BeautifulSoup(html, 'html.parser').find_all('a', href=True)[3: -9]
+    ind = 0
+    while ind + 1 < len(raw_titles):
+        titles.append(raw_titles[ind].text + ": " + raw_titles[ind + 1].text)
+        ind += 2
+    return titles
 
 
 def get_epilogue():
@@ -55,28 +108,27 @@ def get_epilogue():
     return title, [paragraph0, paragraph1, paragraph2]
 
 
+def prettyprint_chapter(ind):
+    chapter = load_json(FOLDERNAME + str(ind) + '.json')
+    print(chapter[TITLE])
+    print()
+    print(chapter[TEXT][3])
+    for paragraph in chapter[TEXT]:
+        print(paragraph)
+        print()
+    print()
+
+
 if __name__ == '__main__':
     pass
-    # t, parags = scrape_chapter('http://www.mobydickthewhale.com/moby-dick/moby-dick-epilogue.htm')
-    # print(t)
-    # print()
-    # for p in parags:
-    #     print(p)
-    # print()
 
-    # print(generate_chapter_urls())
-    # print()
+    # for i in generate_chapter_ids():
+    #     print(i)
 
-    # print(get_epilogue())
-    # print()
+    # for t in scrape_titles():
+    #     print(t)
 
-    s = scrape()
-    for ch in s:
-        print()
-        print(ch['title'])
-        print()
-        for p in ch['text']:
-            print(p)
-            print()
+    # print(generate_chapter_url("Chapter 103: Measurement of The Whale's Skeleton"))
 
+    print(generate_chapter_urls())
 
