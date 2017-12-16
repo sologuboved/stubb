@@ -96,7 +96,3 @@ def prettyprint_chapter_from_json(ind):
         print(paragraph)
         print()
     print()
-
-
-if __name__ == '__main__':
-    pass

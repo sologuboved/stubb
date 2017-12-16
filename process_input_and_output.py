@@ -34,10 +34,3 @@ def process_input_for_cet(user_input):
 
 def process_output(title, paragraph):
     return "%s\n\n(%s)" % (paragraph, title)
-
-
-if __name__ == '__main__':
-    pass
-    # random.seed(19)
-    # c = process_input_for_cet('75')
-    # print(c)

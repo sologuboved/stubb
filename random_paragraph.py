@@ -37,12 +37,3 @@ def get_random_title_and_paragraph(last_num):
         return
 
     return title, paragraph
-
-
-if __name__ == '__main__':
-    tp = get_random_title_and_paragraph(LAST_NUM)
-    t, p = tp
-    print(t)
-    print()
-    print(p)
-
