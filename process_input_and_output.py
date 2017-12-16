@@ -27,9 +27,10 @@ def process_input_for_cet(user_input):
 
     try:
         title, paragraph = get_random_title_and_paragraph(last_num=last_num)
-        return process_output(title, paragraph)
     except TypeError:
         return WRONG
+
+    return process_output(title, paragraph)  # shifted from previous try
 
 
 def process_output(title, paragraph):
