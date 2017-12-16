@@ -4,14 +4,17 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-FOLDERNAME = "Moby Dick/"
+JSON = '.json'
+TXT = '.txt'
+JSON_FOLDERNAME = 'mobydick_json/'
+TXT_FOLDERNAME = 'mobydick_txt/'
+TITLES = 'titles.json'
 TITLE = 'title'
 TEXT = 'text'
-TITLES = 'titles.json'
 
 
-def generate_filename(ind):
-    return FOLDERNAME + str(ind) + '.json'
+def generate_filename(ind, foldername, extension):
+    return foldername + str(ind) + extension
 
 
 def dump_json(data, json_filename):
@@ -24,7 +27,7 @@ def load_json(json_filename):
         return json.load(data)
 
 
-def scrape_and_dump_novel():
+def scrape_and_dump_novel(txt):
     print('Scraping "Moby Dick...\n')
     titles = load_json(TITLES)
     ind = 1
@@ -32,26 +35,30 @@ def scrape_and_dump_novel():
         chapter_url = generate_chapter_url(title)
         text = scrape_chapter(chapter_url, ind)
         chapter = {TITLE: title, TEXT: text}
-        filename = generate_filename(ind)
-        print("Dumping %s to %s" % (title, filename))
-        dump_json(chapter, filename)
+        dump_chapter_to_json(ind, title, chapter)
+        if txt:
+            dump_chapter_to_txt(ind, title, text)
         ind += 1
     epilogue_title, epilogue_text = get_epilogue()
     epilogue = {TITLE: epilogue_title, TEXT: epilogue_text}
-    filename = generate_filename(ind)
-    print("Dumping %s to %s" % (epilogue_title, filename))
-    dump_json(epilogue, filename)
+    dump_chapter_to_json(ind, epilogue_title, epilogue)
+    if txt:
+        dump_chapter_to_txt(ind, epilogue_title, epilogue_text)
 
 
-# def generate_chapter_urls():
-    # titles = get_titles()
-    # return [generate_chapter_url(title) for title in get_titles()]
-    # for title in titles:
-    #     chapter_url = generate_chapter_url(title)
-    #     html = requests.get(chapter_url).content
-    #     soup = BeautifulSoup(html, 'html.parser')
-    #     if "The page you requested could not be found" in str(soup):
-    #         print(chapter_url, '!!!!!!!!!')
+def dump_chapter_to_json(ind, title, chapter):
+    json_filename = generate_filename(ind, JSON_FOLDERNAME, JSON)
+    print("Dumping %s to %s" % (title, json_filename))
+    dump_json(chapter, json_filename)
+
+
+def dump_chapter_to_txt(ind, title, chapter):
+    txt_filename = generate_filename(ind, TXT_FOLDERNAME, TXT)
+    print("Dumping %s to %s" % (title, txt_filename))
+    with open(txt_filename, 'w') as handler:
+        handler.write(title + '\n\n')
+        for paragraph in chapter:
+            handler.write(paragraph + '\n')
 
 
 def generate_chapter_url(title):
@@ -66,28 +73,13 @@ def scrape_chapter(chapter_url, ind):
     print("Scraping chapter", ind)
     html = requests.get(chapter_url).content
     soup = BeautifulSoup(html, 'html.parser')
-    paragraphs = soup.find_all('p')
-    print(paragraphs)
-
-    return paragraphs
-
-
-# def scrape_titles():
-#     print("Scraping titles...")
-#     titles = list()
-#     html = requests.get('http://www.mobydickthewhale.com/moby-dick/moby-dick-table-of-contents.htm').content
-#     raw_titles = BeautifulSoup(html, 'html.parser').find_all('a', href=True)[3: -9]
-#     ind = 0
-#     while ind + 1 < len(raw_titles):
-#         titles.append(raw_titles[ind].text + ": " + raw_titles[ind + 1].text)
-#         ind += 2
-#     return titles
+    return [paragraph.text for paragraph in soup.find_all('p')[: -2] if paragraph.text]
 
 
 def get_epilogue():
     print("Obtaining epilogue...")
     title = 'Moby-Dick Epilogue'
-    paragraph0 = '"and I only am escaped alone to tell thee." Job'
+    paragraph0 = '"and I only am escaped alone to tell thee" Job'
     paragraph1 = "The drama's Done. Why then here does any one step forth? - Because one did survive the wreck."
     paragraph2 = "It so chanced, that after the Parsee's disappearance, I was he whom the Fates ordained to take the " \
                  "place of Ahab's bowsman, when that bowsman assumed the vacant post; the same, who, when on the " \
@@ -107,11 +99,10 @@ def get_epilogue():
     return title, [paragraph0, paragraph1, paragraph2]
 
 
-def prettyprint_chapter(ind):
-    chapter = load_json(FOLDERNAME + str(ind) + '.json')
+def prettyprint_chapter_from_json(ind):
+    chapter = load_json(JSON_FOLDERNAME + str(ind) + '.json')
     print(chapter[TITLE])
     print()
-    print(chapter[TEXT][3])
     for paragraph in chapter[TEXT]:
         print(paragraph)
         print()
@@ -120,24 +111,3 @@ def prettyprint_chapter(ind):
 
 if __name__ == '__main__':
     pass
-
-    # for i in generate_chapter_ids():
-    #     print(i)
-
-    # for t in scrape_titles():
-    #     print(t)
-
-    # print(generate_chapter_url("Chapter 103: Measurement of The Whale's Skeleton"))
-
-    # print(generate_chapter_urls())
-
-    # dump_titles(get_titles())
-
-    # titles = load_json('titles.json')
-    # for t in titles:
-    #     print(t)
-
-    # ts = get_titles(TITLES)
-    # for t in ts:
-    #     print(t)
-
