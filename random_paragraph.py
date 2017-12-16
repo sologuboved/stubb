@@ -31,6 +31,7 @@ def get_random_title_and_paragraph(last_num=LAST_NUM):
     title = chapter[TITLE]
     text = chapter[TEXT]
     ind = random.randrange(0, len(text))
+    print("paragraph index:", ind, '\n')
     paragraph = get_paragraph(text, ind)
     if paragraph is None:
         return
