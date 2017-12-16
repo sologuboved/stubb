@@ -71,8 +71,7 @@ def generate_chapter_url(title):
 
 def scrape_chapter(chapter_url, ind):
     print("Scraping chapter", ind)
-    html = requests.get(chapter_url).content
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = BeautifulSoup(requests.get(chapter_url).content, 'html.parser')
     return [paragraph.text for paragraph in soup.find_all('p')[: -2] if paragraph.text]
 
 
