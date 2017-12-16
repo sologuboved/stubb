@@ -22,7 +22,7 @@ def get_paragraph(text, ind):
         return
 
 
-def get_random_title_and_paragraph(last_num=LAST_NUM):
+def get_random_title_and_paragraph(last_num):
     num = random.randint(1, last_num)
     chapter = get_chapter(num)
     if chapter is None:
@@ -40,7 +40,7 @@ def get_random_title_and_paragraph(last_num=LAST_NUM):
 
 
 if __name__ == '__main__':
-    tp = get_random_title_and_paragraph()
+    tp = get_random_title_and_paragraph(LAST_NUM)
     t, p = tp
     print(t)
     print()

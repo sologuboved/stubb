@@ -69,7 +69,7 @@ def get_epilogue():
     print("Obtaining epilogue...")
     title = 'Moby-Dick Epilogue'
     paragraph0 = '"and I only am escaped alone to tell thee" Job'
-    paragraph1 = "The drama's Done. Why then here does any one step forth? - Because one did survive the wreck."
+    paragraph1 = "The drama's done. Why then here does any one step forth? - Because one did survive the wreck."
     paragraph2 = "It so chanced, that after the Parsee's disappearance, I was he whom the Fates ordained to take the " \
                  "place of Ahab's bowsman, when that bowsman assumed the vacant post; the same, who, when on the " \
                  "last day the three men were tossed from out the rocking boat, was dropped astern. So. floating on " \
