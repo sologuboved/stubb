@@ -18,7 +18,7 @@ def generate_filename(ind, foldername, extension):
 
 
 def scrape_and_dump_novel(txt):
-    print('Scraping "Moby Dick...\n')
+    print('Scraping "Moby Dick"...\n')
     titles = load_json(TITLES)
     ind = 1
     for title in titles:
