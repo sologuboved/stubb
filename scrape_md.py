@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import json
 import requests
 from bs4 import BeautifulSoup
+from json_operations import *
 
 JSON = '.json'
 TXT = '.txt'
@@ -15,16 +15,6 @@ TEXT = 'text'
 
 def generate_filename(ind, foldername, extension):
     return foldername + str(ind) + extension
-
-
-def dump_json(data, json_filename):
-    with open(json_filename, 'w') as handler:
-        json.dump(data, handler)
-
-
-def load_json(json_filename):
-    with open(json_filename) as data:
-        return json.load(data)
 
 
 def scrape_and_dump_novel(txt):
