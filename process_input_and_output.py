@@ -33,6 +33,7 @@ def process_output(title, paragraph):
 
 
 if __name__ == '__main__':
-    random.seed(19)
-    c = process_input_for_cet('75')
-    print(c)
+    pass
+    # random.seed(19)
+    # c = process_input_for_cet('75')
+    # print(c)
