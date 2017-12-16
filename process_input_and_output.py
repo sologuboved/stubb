@@ -9,7 +9,7 @@ NOT_ZERO_ETC = 'The first chapter is chapter 1, named "Loomings"'
 def process_input_for_cet(user_input):
     if not user_input:
         try:
-            title, paragraph = get_random_title_and_paragraph()
+            title, paragraph = get_random_title_and_paragraph(last_num=LAST_NUM)
             return process_output(title, paragraph)
         except TypeError:
             return WRONG
