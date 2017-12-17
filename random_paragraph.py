@@ -2,7 +2,7 @@ import random
 from json_operations import *
 
 EXTENSION = '.json'
-FOLDERNAME = 'mobydick_json/'
+MOBY_DICK_JSON_FOLDER = 'mobydick_json/'
 TITLE = 'title'
 TEXT = 'text'
 LAST_NUM = 136
@@ -10,7 +10,7 @@ LAST_NUM = 136
 
 def get_chapter(num):
     try:
-        return load_json(FOLDERNAME + str(num) + EXTENSION)
+        return load_json(MOBY_DICK_JSON_FOLDER + str(num) + EXTENSION)
     except FileNotFoundError:
         return
 

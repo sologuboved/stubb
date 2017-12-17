@@ -33,5 +33,5 @@ def process_input_for_cet(user_input):
     return process_output(title, paragraph)  # shifted from previous try
 
 
-def process_output(title, paragraph):
-    return "%s\n\n(%s)" % (paragraph, title)
+def process_output(title, text):
+    return "%s\n\n(%s)" % (text, title)

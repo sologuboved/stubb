@@ -6,8 +6,8 @@ from json_operations import *
 
 JSON = '.json'
 TXT = '.txt'
-JSON_FOLDERNAME = 'mobydick_json/'
-TXT_FOLDERNAME = 'mobydick_txt/'
+MOBY_DICK_JSON_FOLDER = 'mobydick_json/'
+MOBY_DICK_TXT_FOLDER = 'mobydick_txt/'
 TITLES = 'titles.json'
 TITLE = 'title'
 TEXT = 'text'
@@ -37,13 +37,13 @@ def scrape_and_dump_novel(txt):
 
 
 def dump_chapter_to_json(ind, title, chapter):
-    json_filename = generate_filename(ind, JSON_FOLDERNAME, JSON)
+    json_filename = generate_filename(ind, MOBY_DICK_JSON_FOLDER, JSON)
     print("Dumping %s to %s" % (title, json_filename))
     dump_json(chapter, json_filename)
 
 
 def dump_chapter_to_txt(ind, title, chapter):
-    txt_filename = generate_filename(ind, TXT_FOLDERNAME, TXT)
+    txt_filename = generate_filename(ind, MOBY_DICK_TXT_FOLDER, TXT)
     print("Dumping %s to %s" % (title, txt_filename))
     with open(txt_filename, 'w') as handler:
         handler.write(title + '\n\n')
@@ -89,7 +89,7 @@ def get_epilogue():
 
 
 def prettyprint_chapter_from_json(ind):
-    chapter = load_json(JSON_FOLDERNAME + str(ind) + '.json')
+    chapter = load_json(MOBY_DICK_JSON_FOLDER + str(ind) + '.json')
     print(chapter[TITLE])
     print()
     for paragraph in chapter[TEXT]:
