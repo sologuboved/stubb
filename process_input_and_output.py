@@ -1,4 +1,5 @@
 from random_paragraph import *
+from random_extract import *
 
 INVALID_INPUT = "Invalid input!"
 WRONG = "Something went wrong!"
@@ -30,8 +31,16 @@ def process_input_for_cet(user_input):
     except TypeError:
         return WRONG
 
-    return process_output(title, paragraph)  # shifted from previous try
+    return process_output(title, paragraph)
+
+
+def process_input_for_lib():
+    return process_output(*get_random_extract())
 
 
 def process_output(title, text):
     return "%s\n\n(%s)" % (text, title)
+
+
+if __name__ == '__main__':
+    print(process_input_for_cet(None))
