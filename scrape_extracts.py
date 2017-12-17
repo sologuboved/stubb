@@ -3,14 +3,14 @@ from bs4 import BeautifulSoup
 from process_input_and_output import *
 from substitutes import *
 
-TEXT = 'text'
-TITLE = 'title'
+EXTRACTS_URL = 'http://www.powermobydick.com/Moby0001.html'
 EXTRACTS_FOLDER = 'extracts/'
 EXTRACTS = 'extracts'
 RAW_EXTRACTS = 'raw_extracts'
 JSON = '.json'
 TXT = '.txt'
-EXTRACTS_URL = 'http://www.powermobydick.com/Moby0001.html'
+TEXT = 'text'
+TITLE = 'title'
 
 
 def scrape_and_dump():

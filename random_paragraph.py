@@ -1,11 +1,11 @@
 import random
 from json_operations import *
 
-EXTENSION = '.json'
+LAST_NUM = 136
 MOBY_DICK_JSON_FOLDER = 'mobydick_json/'
+EXTENSION = '.json'
 TITLE = 'title'
 TEXT = 'text'
-LAST_NUM = 136
 
 
 def get_chapter(num):

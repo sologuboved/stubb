@@ -4,11 +4,11 @@ import requests
 from bs4 import BeautifulSoup
 from json_operations import *
 
-JSON = '.json'
-TXT = '.txt'
 MOBY_DICK_JSON_FOLDER = 'mobydick_json/'
 MOBY_DICK_TXT_FOLDER = 'mobydick_txt/'
 TITLES = 'titles.json'
+JSON = '.json'
+TXT = '.txt'
 TITLE = 'title'
 TEXT = 'text'
 
