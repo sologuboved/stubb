@@ -40,14 +40,6 @@ def lib(bot, update):
     # /lib
     query = update['message']['text']
     print('query:', query)
-    # query = query.split()
-    # print('split:', query)
-    # if len(query) == 1:
-    #     reply = process_input_for_cet(LAST_NUM)
-    # elif len(query) == 2:
-    #     reply = process_input_for_cet(query[1])
-    # else:
-    #     reply = INVALID_INPUT
     reply = process_input_for_lib()
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
