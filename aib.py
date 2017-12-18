@@ -2,6 +2,9 @@ from telegram.ext import Updater, CommandHandler
 from tkn import TOKEN
 from process_input_and_output import *
 
+# cet - get random quote
+# lib - get random extract
+
 
 def start(bot, update):
     text = "Why then here does any one step forth? - Because one did survive the wreck."
@@ -13,7 +16,8 @@ def description(bot, update):
     reply = "*Commands:* \n\n" \
             "/cet - quote random paragraph\n" \
             "/cet x - to avoid spoilers, specify integer 1 <= x <= %d " \
-            "so that the random quote comes from chapters [1, x]" % LAST_NUM
+            "so that the random quote comes from chapters [1, x]\n" \
+            "/lib - quote random extract from chapter Extracts" % LAST_NUM
 
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
