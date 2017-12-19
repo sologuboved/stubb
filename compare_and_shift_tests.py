@@ -1,14 +1,5 @@
 from random import randint, seed
-from check_if_fits import compare_and_shift, LENGTH, CHAPTER, PARAGRAPH
-
-
-def generate_top(top_size):
-
-    top = list()
-    for ind in range(top_size):
-        top.append({LENGTH: 0, CHAPTER: None, PARAGRAPH: None})
-
-    return top
+from check_if_fits import compare_and_shift, generate_top_dummy, LENGTH, CHAPTER, PARAGRAPH
 
 
 def generate_case(case_size, top_size):
@@ -34,7 +25,7 @@ def run_tests(num_cases, case_size, top_size):
     for item in cases_and_solutions:
         case = item[0]
         correct_solution = item[1]
-        solution_in_question = generate_top(top_size)
+        solution_in_question = generate_top_dummy(top_size)
         launch_compare_and_shift(solution_in_question, case)
         if solution_in_question == correct_solution:
             res.append(False)
