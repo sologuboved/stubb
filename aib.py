@@ -50,6 +50,21 @@ def lib(bot, update):
     bot.send_message(chat_id=chat_id, text=reply)
 
 
+def lev(bot, update):
+    # /lev 31 1
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
+    print('split:', query)
+    if len(query) == 3:
+        reply = process_input_for_lev(query[1], query[2])
+    else:
+        reply = INVALID_INPUT
+    print('reply:', reply, '\n')
+    chat_id = update.message.chat_id
+    bot.send_message(chat_id=chat_id, text=reply)
+
+
 if __name__ == '__main__':
     updater = Updater(token=TOKEN)
     dispatcher = updater.dispatcher
@@ -58,10 +73,12 @@ if __name__ == '__main__':
     help_handler = CommandHandler('help', description)
     cet_handler = CommandHandler('cet', cet)
     lib_handler = CommandHandler('lib', lib)
+    lev_handler = CommandHandler('lev', lev)
 
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(cet_handler)
     dispatcher.add_handler(lib_handler)
+    dispatcher.add_handler(lev_handler)
 
     updater.start_polling()
