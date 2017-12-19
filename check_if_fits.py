@@ -27,7 +27,8 @@ def find_top():
     return top
 
 
-def compare_and_shift(top, top_size, length, chapter, paragraph):
+def compare_and_shift(top, length, chapter, paragraph):
+    top_size = len(top)
     for bigger_ind in range(top_size):
         curr_length = top[bigger_ind][LENGTH]
         if curr_length == length:
