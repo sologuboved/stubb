@@ -3,14 +3,17 @@ from json_operations import *
 
 LAST_NUM = 136
 MOBY_DICK_JSON_FOLDER = 'mobydick_json/'
-EXTENSION = '.json'
+MOBY_DICK_TXT_FOLDER = 'mobydick_txt/'
+TITLES = 'titles.json'
+JSON = '.json'
+TXT = '.txt'
 TITLE = 'title'
 TEXT = 'text'
 
 
 def get_chapter(num):
     try:
-        return load_json(MOBY_DICK_JSON_FOLDER + str(num) + EXTENSION)
+        return load_json(MOBY_DICK_JSON_FOLDER + str(num) + JSON)
     except FileNotFoundError:
         return
 
