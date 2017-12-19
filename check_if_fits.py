@@ -21,14 +21,16 @@ def generate_top_dummy(top_size):
 def find_top(top_size):
     top = generate_top_dummy(top_size)
 
-    for num in range(LAST_NUM + 1):
+    for num in range(1, LAST_NUM + 1):
         chapter = load_json(MOBY_DICK_JSON_FOLDER + str(num) + JSON)
         paragraphs = chapter[TEXT]
         title = chapter[TITLE]
         for ind in range(len(paragraphs)):
             paragraph = paragraphs[ind]
             length = len(paragraph)
-            compare_and_shift(top, length, ind, title)
+            compare_and_shift(top, length, title, ind)
+
+    prettyprint_top_output(top)
     return top
 
 
@@ -56,6 +58,12 @@ def compare_and_shift(top, length, chapter, paragraph):
             break
 
 
+def prettyprint_top_output(top):
+    for item in top:
+        print("%s, paragraph %d, length: %d" % (item[CHAPTER], item[PARAGRAPH], item[LENGTH]))
+
+
 if __name__ == '__main__':
     pass
+    find_top(TOP)
 
