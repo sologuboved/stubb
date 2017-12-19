@@ -1,5 +1,5 @@
 from random import randint, seed
-from check_if_fits import compare_and_shift, TOP, LENGTH, CHAPTER, PARAGRAPH
+from check_if_fits import compare_and_shift, LENGTH, CHAPTER, PARAGRAPH
 
 
 def generate_top(top_size):
@@ -26,19 +26,47 @@ def generate_case(case_size, top_size):
     return case, solution
 
 
-def get_compare_and_shift(top, case):
-    pass
+def run_tests(num_cases, case_size, top_size):
+
+    res = list()
+    cases_and_solutions = [generate_case(case_size, top_size) for _ in range(num_cases)]
+
+    for item in cases_and_solutions:
+        case = item[0]
+        correct_solution = item[1]
+        solution_in_question = generate_top(top_size)
+        launch_compare_and_shift(solution_in_question, case)
+        if solution_in_question == correct_solution:
+            res.append(False)
+        else:
+            prettyprint_nomatch(case, correct_solution, solution_in_question)
+            return
+    print(sum(res) == 0, len(res) == num_cases)
+
+
+def launch_compare_and_shift(top, case):
+
+    for item in case:
+        compare_and_shift(top, *item)
+
+
+def prettyprint_nomatch(case, correct_solution, solution_in_question):
+
+    print('Case:')
+    for entry in case:
+        print(entry)
+    print()
+
+    print("Correct solution:")
+    for entry in correct_solution:
+        print(entry)
+    print()
+
+    print("Incorrect solution:")
+    for entry in solution_in_question:
+        print(entry)
 
 
 if __name__ == '__main__':
     seed(19)
-
-    c, s = generate_case(10, 5)
-
-    for i in c:
-        print(i)
-    print()
-    for i in s:
-        print(i)
-
-
+    run_tests(1000, 5000, 5)
