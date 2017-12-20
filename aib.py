@@ -17,7 +17,8 @@ def description(bot, update):
             "/cet - quote random paragraph\n" \
             "/cet x - to avoid spoilers, specify integer 1 <= x <= %d " \
             "so that the random quote comes from chapters [1, x]\n" \
-            "/lib - quote random extract from chapter Extracts" % LAST_NUM
+            "/lib - quote random extract from chapter Extracts\n" \
+            "/lev x y - get paragraph with index y from chapter x" % LAST_NUM
 
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
