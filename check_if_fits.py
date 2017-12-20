@@ -42,24 +42,24 @@ def find_top(top_size):
 def compare_and_shift(top, length, chapter, paragraph):
     top_size = len(top)
 
-    for bigger_ind in range(top_size):
-        curr_length = top[bigger_ind][LENGTH]
+    for pivotal_ind in range(top_size):
+        curr_length = top[pivotal_ind][LENGTH]
 
         if curr_length == length:
             break
 
-        if top[bigger_ind][LENGTH] < length:
-            smaller_ind = top_size - 1
+        if top[pivotal_ind][LENGTH] < length:
+            ind = top_size - 1
 
-            while smaller_ind > bigger_ind:
-                top[smaller_ind][LENGTH] = top[smaller_ind - 1][LENGTH]
-                top[smaller_ind][CHAPTER] = top[smaller_ind - 1][CHAPTER]
-                top[smaller_ind][PARAGRAPH] = top[smaller_ind - 1][PARAGRAPH]
-                smaller_ind -= 1
+            while ind > pivotal_ind:
+                top[ind][LENGTH] = top[ind - 1][LENGTH]
+                top[ind][CHAPTER] = top[ind - 1][CHAPTER]
+                top[ind][PARAGRAPH] = top[ind - 1][PARAGRAPH]
+                ind -= 1
 
-            top[bigger_ind][LENGTH] = length
-            top[bigger_ind][CHAPTER] = chapter
-            top[bigger_ind][PARAGRAPH] = paragraph
+            top[pivotal_ind][LENGTH] = length
+            top[pivotal_ind][CHAPTER] = chapter
+            top[pivotal_ind][PARAGRAPH] = paragraph
             break
 
 
@@ -79,9 +79,4 @@ def elicit_paragraph(chapter_num, paragraph_ind):
         return title, paragraphs[paragraph_ind]
     except IndexError:
         return len(paragraphs)
-
-
-if __name__ == '__main__':
-    pass
-    find_top(TOP)
 
