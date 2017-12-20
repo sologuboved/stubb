@@ -110,24 +110,3 @@ def prettyprint_raw_extracts():
         print()
         ind += 1
 
-
-if __name__ == '__main__':
-    pass
-
-    # omit_raw_extract(46)
-    # merge_raw_extracts(69, 70)
-
-    # replace_raw_extract(70, s70)
-    # replace_raw_extract(23, s23)
-    # replace_raw_extract(54, s54)
-
-    # prettyprint_raw_extracts()
-
-    # cook_extracts()
-
-    # json_to_txt()
-
-    # print(load_json(EXTRACTS_FOLDER + RAW_EXTRACTS + JSON)[70])
-
-
-

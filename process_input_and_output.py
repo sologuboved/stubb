@@ -61,10 +61,3 @@ def process_input_for_lev(chapter_num, paragraph_ind):
 def process_output(title, text):
     return "%s\n\n(%s)" % (text, title)
 
-
-if __name__ == '__main__':
-    pass
-    # print(process_input_for_cet(None))
-    print(process_input_for_lev('31 ', '  1'))
-
-
