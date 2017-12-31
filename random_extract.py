@@ -12,3 +12,4 @@ def get_random_extract():
     print("extract index:", random_ind, '\n')
     random_extract = extracts[random_ind]
     return random_extract[TITLE], random_extract[TEXT]
+
