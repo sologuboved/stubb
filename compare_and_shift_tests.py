@@ -1,5 +1,11 @@
 from random import randint, seed
-from check_if_fits import compare_and_shift, generate_top_dummy, LENGTH, CHAPTER, PARAGRAPH
+from check_if_fits import generate_top_dummy, update_top, LENGTH, CHAPTER, PARAGRAPH
+
+
+def launch_update_top(top, case):
+
+    for item in case:
+        update_top(top, *item)
 
 
 def generate_case(case_size, top_size):
@@ -26,19 +32,13 @@ def run_tests(num_cases, case_size, top_size):
         case = item[0]
         correct_solution = item[1]
         solution_in_question = generate_top_dummy(top_size)
-        launch_compare_and_shift(solution_in_question, case)
+        launch_sort_top(solution_in_question, case)
         if solution_in_question == correct_solution:
             res.append(False)
         else:
             prettyprint_nomatch(case, correct_solution, solution_in_question)
             return
     print(sum(res) == 0, len(res) == num_cases)
-
-
-def launch_compare_and_shift(top, case):
-
-    for item in case:
-        compare_and_shift(top, *item)
 
 
 def prettyprint_nomatch(case, correct_solution, solution_in_question):
@@ -60,4 +60,4 @@ def prettyprint_nomatch(case, correct_solution, solution_in_question):
 
 if __name__ == '__main__':
     seed(19)
-    run_tests(1000, 5000, 5)
+    run_tests(1, 10, 2)

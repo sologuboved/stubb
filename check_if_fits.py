@@ -33,34 +33,16 @@ def find_top(top_size):
         for ind in range(len(paragraphs)):
             paragraph = paragraphs[ind]
             length = len(paragraph)
-            compare_and_shift(top, length, num, ind)
+            update_top(top, length, num, ind)
 
     prettyprint_top_output(top)
     return top
 
 
-def compare_and_shift(top, length, chapter, paragraph):
-    top_size = len(top)
-
-    for pivotal_ind in range(top_size):
-        curr_length = top[pivotal_ind][LENGTH]
-
-        if curr_length == length:
-            break
-
-        if top[pivotal_ind][LENGTH] < length:
-            ind = top_size - 1
-
-            while ind > pivotal_ind:
-                top[ind][LENGTH] = top[ind - 1][LENGTH]
-                top[ind][CHAPTER] = top[ind - 1][CHAPTER]
-                top[ind][PARAGRAPH] = top[ind - 1][PARAGRAPH]
-                ind -= 1
-
-            top[pivotal_ind][LENGTH] = length
-            top[pivotal_ind][CHAPTER] = chapter
-            top[pivotal_ind][PARAGRAPH] = paragraph
-            break
+def update_top(top, length, chapter, paragraph):
+    top.append({LENGTH: length, CHAPTER: chapter, PARAGRAPH: paragraph})
+    top.sort(key=lambda i: i[LENGTH], reverse=True)
+    del top[-1]
 
 
 def prettyprint_top_output(top):
