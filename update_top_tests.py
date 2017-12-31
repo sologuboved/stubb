@@ -32,7 +32,7 @@ def run_tests(num_cases, case_size, top_size):
         case = item[0]
         correct_solution = item[1]
         solution_in_question = generate_top_dummy(top_size)
-        launch_sort_top(solution_in_question, case)
+        launch_update_top(solution_in_question, case)
         if solution_in_question == correct_solution:
             res.append(False)
         else:
@@ -60,4 +60,4 @@ def prettyprint_nomatch(case, correct_solution, solution_in_question):
 
 if __name__ == '__main__':
     seed(19)
-    run_tests(1, 10, 2)
+    run_tests(1000, 1000, 10)
