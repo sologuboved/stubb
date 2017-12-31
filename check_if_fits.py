@@ -40,6 +40,9 @@ def find_top(top_size):
 
 
 def update_top(top, length, chapter, paragraph):
+    for item in top:
+        if item[LENGTH] == length:
+            return
     top.append({LENGTH: length, CHAPTER: chapter, PARAGRAPH: paragraph})
     top.sort(key=lambda i: i[LENGTH], reverse=True)
     del top[-1]
