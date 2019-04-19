@@ -1,9 +1,6 @@
 import random
-from json_operations import load_json
-
-EXTRACTS = 'extracts/extracts.json'
-TITLE = 'title'
-TEXT = 'text'
+from basic_operations import load_json
+from global_vars import *
 
 
 def get_random_extract():

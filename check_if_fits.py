@@ -4,17 +4,8 @@
 # Chapter 27, paragraph 8, length: 2955
 # Chapter 54, paragraph 8, length: 2929
 
-from json_operations import load_json
-
-LAST_NUM = 136
-TOP = 5
-MOBY_DICK_JSON_FOLDER = 'mobydick_json/'
-JSON = '.json'
-TITLE = 'title'
-TEXT = 'text'
-LENGTH = 'length'
-CHAPTER = 'chapter'
-PARAGRAPH = 'paragraph'
+from basic_operations import load_json
+from global_vars import *
 
 
 def generate_top_dummy(top_size):
@@ -64,4 +55,3 @@ def elicit_paragraph(chapter_num, paragraph_ind):
         return title, paragraphs[paragraph_ind]
     except IndexError:
         return len(paragraphs)
-

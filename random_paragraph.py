@@ -1,14 +1,6 @@
 import random
-from json_operations import *
-
-LAST_NUM = 136
-MOBY_DICK_JSON_FOLDER = 'mobydick_json/'
-MOBY_DICK_TXT_FOLDER = 'mobydick_txt/'
-TITLES = 'titles.json'
-JSON = '.json'
-TXT = '.txt'
-TITLE = 'title'
-TEXT = 'text'
+from basic_operations import *
+from global_vars import *
 
 
 def get_chapter(num):
