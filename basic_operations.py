@@ -1,6 +1,17 @@
+import json
 import os
 import sys
 import re
+
+
+def dump_json(data, json_filename):
+    with open(json_filename, 'w') as handler:
+        json.dump(data, handler)
+
+
+def load_json(json_filename):
+    with open(json_filename) as data:
+        return json.load(data)
 
 
 def write_pid():
