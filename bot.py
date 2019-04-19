@@ -1,6 +1,7 @@
 from telegram.ext import Updater, CommandHandler
 from tkn import TOKEN
 from process_input_and_output import *
+from pid_operations import write_pid
 
 # cet - get random quote
 # lib - get random extract
@@ -66,7 +67,7 @@ def lev(bot, update):
     bot.send_message(chat_id=chat_id, text=reply)
 
 
-if __name__ == '__main__':
+def main():
     updater = Updater(token=TOKEN)
     dispatcher = updater.dispatcher
 
@@ -83,3 +84,8 @@ if __name__ == '__main__':
     dispatcher.add_handler(lev_handler)
 
     updater.start_polling()
+
+
+if __name__ == '__main__':
+    write_pid()
+    main()
