@@ -1,12 +1,7 @@
 from random_paragraph import *
 from random_extract import *
 from check_if_fits import elicit_paragraph
-
-INVALID_INPUT = "Invalid input!"
-WRONG = "Something went wrong!"
-TOO_MUCH = 'There are as many as 136 Chapters in "Moby Dick", including the Epilogue'
-NOT_ZERO_ETC = 'The first chapter is chapter 1, named "Loomings"'
-NO_PARAGRAPH = "No such paragraph; the last in this chapter has index "
+from global_vars import *
 
 
 def process_input_for_cet(user_input):

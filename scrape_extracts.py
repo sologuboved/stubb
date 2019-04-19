@@ -1,16 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from process_input_and_output import *
-from substitutes import *
-
-EXTRACTS_URL = 'http://www.powermobydick.com/Moby0001.html'
-EXTRACTS_FOLDER = 'extracts/'
-EXTRACTS = 'extracts'
-RAW_EXTRACTS = 'raw_extracts'
-JSON = '.json'
-TXT = '.txt'
-TEXT = 'text'
-TITLE = 'title'
+from global_vars import *
 
 
 def scrape_and_dump():
@@ -30,21 +21,21 @@ def scrape_extracts():
 
 
 def dump_raw_extracts():
-    filename = EXTRACTS_FOLDER + RAW_EXTRACTS + JSON
+    filename = EXTRACTS + RAW_EXTRACTS + JSON
     print("Dumping raw extracts to %s...\n" % filename)
     raw_extracts = scrape_extracts()
     dump_json(raw_extracts, filename)
 
 
 def replace_raw_extract(ind, substitute):
-    filename = EXTRACTS_FOLDER + RAW_EXTRACTS + JSON
+    filename = EXTRACTS + RAW_EXTRACTS + JSON
     raw_extracts = load_json(filename)
     raw_extracts[ind] = substitute
     dump_json(raw_extracts, filename)
 
 
 def merge_raw_extracts(start_ind, end_ind):
-    filename = EXTRACTS_FOLDER + RAW_EXTRACTS + JSON
+    filename = EXTRACTS + RAW_EXTRACTS + JSON
     raw_extracts = load_json(filename)
     to_merge = raw_extracts[start_ind: end_ind + 1]
 
@@ -58,7 +49,7 @@ def merge_raw_extracts(start_ind, end_ind):
 
 
 def omit_raw_extract(ind):
-    filename = EXTRACTS_FOLDER + RAW_EXTRACTS + JSON
+    filename = EXTRACTS + RAW_EXTRACTS + JSON
     raw_extracts = load_json(filename)
     dump_json(raw_extracts[: ind] + raw_extracts[ind + 1:], filename)
 
@@ -67,14 +58,14 @@ def cook_extracts():
     # Separate extracts from sources with the help of dictinaries {'text': text, 'title': title}
     # and dump them into a new .json
     extracts = list()
-    raw_extracts = load_json(EXTRACTS_FOLDER + RAW_EXTRACTS + JSON)
+    raw_extracts = load_json(EXTRACTS + RAW_EXTRACTS + JSON)
     ind = 0
     for raw_extract in raw_extracts:
         print(ind)
         ind += 1
         extract, source = reprocess_extract(raw_extract)
         extracts.append({TEXT: extract, TITLE: source})
-    dump_json(extracts, EXTRACTS_FOLDER + EXTRACTS + JSON)
+    dump_json(extracts, EXTRACTS + EXTRACTS + JSON)
 
 
 def reprocess_extract(raw_extract):
@@ -91,9 +82,9 @@ def reprocess_extract(raw_extract):
 
 
 def json_to_txt():
-    extracts = load_json(EXTRACTS_FOLDER + EXTRACTS + JSON)
+    extracts = load_json(EXTRACTS + EXTRACTS + JSON)
     ind = 0
-    with open(EXTRACTS_FOLDER + EXTRACTS + TXT, 'w') as handler:
+    with open(EXTRACTS + EXTRACTS + TXT, 'w') as handler:
         for extract in extracts:
             handler.write("<%d>\n" % ind)
             handler.write(extract[TEXT] + '\n\n')
@@ -102,7 +93,7 @@ def json_to_txt():
 
 
 def prettyprint_raw_extracts():
-    raw_extracts = load_json(EXTRACTS_FOLDER + RAW_EXTRACTS + JSON)
+    raw_extracts = load_json(EXTRACTS + RAW_EXTRACTS + JSON)
     ind = 0
     for raw_extract in raw_extracts:
         print(ind)

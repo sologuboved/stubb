@@ -1,7 +1,7 @@
 from telegram.ext import Updater, CommandHandler
 from tkn import TOKEN
 from process_input_and_output import *
-from pid_operations import write_pid
+from basic_operations import write_pid
 
 # cet - get random quote
 # lib - get random extract
