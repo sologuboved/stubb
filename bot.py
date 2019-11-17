@@ -7,13 +7,13 @@ from basic_operations import write_pid
 # lib - get random extract
 
 
-def start(bot, update):
+def start(update, context):
     text = "Why then here does any one step forth? - Because one did survive the wreck."
     chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=text)
+    context.bot.send_message(chat_id=chat_id, text=text)
 
 
-def description(bot, update):
+def description(update, context):
     reply = "*Commands:* \n\n" \
             "/cet - quote random paragraph\n" \
             "/cet x - to avoid spoilers, specify integer 1 <= x <= %d " \
@@ -22,10 +22,10 @@ def description(bot, update):
             "/lev x y - get paragraph with index y from chapter x" % LAST_NUM
 
     chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=reply)
+    context.send_message(chat_id=chat_id, text=reply)
 
 
-def cet(bot, update):
+def cet(update, context):
     # /cet 75
     query = update['message']['text']
     print('query:', query)
@@ -39,20 +39,20 @@ def cet(bot, update):
         reply = INVALID_INPUT
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=reply)
+    context.bot.send_message(chat_id=chat_id, text=reply)
 
 
-def lib(bot, update):
+def lib(update, context):
     # /lib
     query = update['message']['text']
     print('query:', query)
     reply = process_input_for_lib()
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=reply)
+    context.bot.send_message(chat_id=chat_id, text=reply)
 
 
-def lev(bot, update):
+def lev(update, context):
     # /lev 31 1
     query = update['message']['text']
     print('query:', query)
@@ -64,11 +64,11 @@ def lev(bot, update):
         reply = INVALID_INPUT
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=reply)
+    context.bot.send_message(chat_id=chat_id, text=reply)
 
 
 def main():
-    updater = Updater(token=TOKEN)
+    updater = Updater(token=TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
     start_handler = CommandHandler('start', start)
